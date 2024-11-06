@@ -4,7 +4,7 @@ import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig = {
-  // votre configuration ici
+// votre configuration ici
 };
 
 const app = initializeApp(firebaseConfig);

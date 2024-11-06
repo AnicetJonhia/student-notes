@@ -192,7 +192,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
           </Select>
           <DialogFooter>
             <Button onClick={() => handleUpdateNote(selectedNote)}>Mettre à jour</Button>
-            <Button variant="destructive" onClick={() => handleDeleteNote(selectedNote.id)}>Annuler</Button>
+            <Button variant="destructive" onClick={() => handleDeleteNote(selectedNote.id)}>Supprimer</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
