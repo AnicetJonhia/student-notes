@@ -5,7 +5,7 @@ import { Button } from "./ui/button.tsx";
 import Auth from "./Auth.tsx";
 import { db } from "../firebase/firebaseConfig.ts";
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where } from "firebase/firestore";
-import { useAuth } from "../hooks/useAuth"; // Custom hook to get the current user
+import { useAuth } from "../hooks/useAuth";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu.tsx";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "./ui/dialog.tsx";
 import { Input } from "./ui/input.tsx";
@@ -18,14 +18,9 @@ import {
 } from "./ui/select"
 import { ToggleDarkMode } from "./utils/ToggleDarkMode.tsx";
 
-interface Category {
-  id: string;
-  name: string;
-  color: string;
-  user_id: string;
-}
+import { Category } from "../types/Category";
 
-interface NavbarProps {
+type NavbarProps ={
   onSelectCategory: (category: Category | null) => void;
 }
 
@@ -170,7 +165,7 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
             <Select
               value={currentCategory.color}
               onValueChange={(value) => setCurrentCategory({ ...currentCategory, color: value })}
-              className="border p-2"
+
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select a color" />
@@ -244,7 +239,7 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
           <Select
             value={newCategory.color}
             onValueChange={(value) => setNewCategory({ ...newCategory, color: value })}
-            className="border p-2"
+
           >
             <SelectTrigger>
               <SelectValue placeholder="Sélectionner une couleur" />

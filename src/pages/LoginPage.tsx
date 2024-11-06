@@ -1,6 +1,6 @@
-import { auth, provider } from "@/firebase/firebaseConfig";
+import { auth, provider } from "../firebase/firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -9,7 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "../components/ui/card";
 
 const LoginPage = () => {
   const navigate = useNavigate();

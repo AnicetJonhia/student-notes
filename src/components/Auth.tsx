@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu.tsx";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button.tsx";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "./ui/separator";
 import { LogOut } from "lucide-react";
 
 const Auth = () => {

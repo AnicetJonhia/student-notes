@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "../ui/button.tsx";
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "../../context/ThemeContext";
 
 export function ToggleDarkMode() {
   const { theme, setTheme } = useTheme();

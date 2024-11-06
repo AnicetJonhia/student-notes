@@ -1,6 +1,7 @@
 import { useState } from "react";
-import MainLayout from "@/components/MainLayout";
-import Navbar from "@/components/Navbar";
+import MainLayout from "../components/MainLayout";
+import Navbar from "../components/Navbar";
+import { Category } from "../types/Category";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);

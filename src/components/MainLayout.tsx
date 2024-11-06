@@ -4,38 +4,19 @@ import { collection, addDoc, updateDoc, deleteDoc, doc, query, where, onSnapshot
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import { useAuth } from "../hooks/useAuth"; // Custom hook to get the current user
+import { useAuth } from "../hooks/useAuth";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "./ui/card";
+import { Card, CardContent, CardHeader } from "./ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "./ui/dialog";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  user_id: string;
-  category: {
-    name: string;
-    color: string;
-  };
-}
+import { Note } from "../types/Note";
+import { Category } from "../types/Category";
 
-interface Category {
-  id: string;
-  name: string;
-  color: string;
-  user_id: string;
-}
-
-interface MainLayoutProps {
+type MainLayoutProps = {
   selectedCategory: Category | null;
   setSelectedCategory: (category: Category | null) => void;
-}
+};
 
 const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -99,10 +80,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
           <Button className="ml-auto" onClick={() => setIsNewNoteDialogOpen(true)}>Nouvelle note</Button>
         </div>
 
-        <Carousel
-          opts={{ align: "start" }}
-          className="w-full relative"
-        >
+        <Carousel opts={{ align: "start" }} className="w-full relative">
           <CarouselContent>
             <CarouselItem className="ml-10 md:basis-1/3 lg:basis-1/4 basis-1/3">
               <Button
@@ -131,24 +109,24 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
 
         <div className="flex items-center justify-center flex-wrap">
           {notes.map((note) => (
-              <Card key={note.id} onClick={() => setSelectedNote(note)} className="cursor-pointer mb-2 mr-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <div>{note.title}</div>
-                      <div className="flex items-center">
-                        <span
-                          className="inline-block w-4 h-4 mr-2 rounded-full"
-                          style={{ backgroundColor: note.category.color }}
-                        ></span>
-                        <div className="text-sm text-gray-500">{note.category.name}</div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-sm text-gray-500">{note.content.substring(0, 10)}...</div>
-                  </CardContent>
-                </Card>
-              ))}
+            <Card key={note.id} onClick={() => setSelectedNote(note)} className="cursor-pointer mb-2 mr-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
+              <CardHeader>
+                <div className="flex justify-between items-center">
+                  <div>{note.title}</div>
+                  <div className="flex items-center">
+                    <span
+                      className="inline-block w-4 h-4 mr-2 rounded-full"
+                      style={{ backgroundColor: note.category.color }}
+                    ></span>
+                    <div className="text-sm text-gray-500">{note.category.name}</div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-gray-500">{note.content.substring(0, 10)}...</div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 
@@ -160,23 +138,22 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
           <Input
             type="text"
             value={selectedNote?.title || ""}
-            onChange={(e) => setSelectedNote({ ...selectedNote, title: e.target.value })}
+            onChange={(e) => setSelectedNote(selectedNote ? { ...selectedNote, title: e.target.value } : null)}
             className="border p-2 w-full mb-4"
           />
           <Textarea
             value={selectedNote?.content || ""}
-            onChange={(e) => setSelectedNote({ ...selectedNote, content: e.target.value })}
+            onChange={(e) => setSelectedNote(selectedNote ? { ...selectedNote, content: e.target.value } : null)}
             className="border p-2 w-full h-96"
           />
           <Select
             value={selectedNote?.category.name || ""}
             onValueChange={(value) => {
               const selectedCategory = categories.find(category => category.name === value);
-              if (selectedCategory) {
+              if (selectedCategory && selectedNote) {
                 setSelectedNote({ ...selectedNote, category: { name: selectedCategory.name, color: selectedCategory.color } });
               }
             }}
-            className="border p-2 w-full mb-4"
           >
             <SelectTrigger>
               <SelectValue placeholder="Selectionner une catégorie" />
@@ -191,8 +168,8 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
             </SelectContent>
           </Select>
           <DialogFooter>
-            <Button onClick={() => handleUpdateNote(selectedNote)}>Mettre à jour</Button>
-            <Button variant="destructive" onClick={() => handleDeleteNote(selectedNote.id)}>Supprimer</Button>
+            <Button onClick={() => selectedNote && handleUpdateNote(selectedNote)}>Mettre à jour</Button>
+            <Button variant="destructive" onClick={() => selectedNote && handleDeleteNote(selectedNote.id)}>Supprimer</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -224,7 +201,6 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
                 setNewNote({ ...newNote, category: { name: selectedCategory.name, color: selectedCategory.color } });
               }
             }}
-            className="border p-2 w-full mb-2"
           >
             <SelectTrigger>
               <SelectValue placeholder="Selectionner une catégorie" />
