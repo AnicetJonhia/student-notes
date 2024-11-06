@@ -1,16 +1,16 @@
 import { useState } from "react";
-import Navbar from "./components/Navbar.tsx";
-import MainLayout from "./components/MainLayout.tsx";
+import MainLayout from "./components/MainLayout";
+import Navbar from "./components/Navbar";
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   return (
     <div className="h-screen flex flex-col">
       <Navbar onSelectCategory={setSelectedCategory} />
-      <div className="flex flex-1">
-        <MainLayout selectedCategory={selectedCategory} />
-      </div>
+
+        <MainLayout selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+
     </div>
   );
 };
