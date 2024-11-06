@@ -125,13 +125,13 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
                             onClick={() => openDialog(category)}
                           >
                             <Pencil className="mr-2 h-4 w-4" />
-                            Edit
+                            Editer
                           </Button>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
                           <Button className="cursor-pointer w-full mt-2 p-3" variant="destructive" onClick={() => deleteCategory(category.id)}>
                             <Trash className="mr-2 h-4 w-4" />
-                            Delete
+                            Supprimer
                           </Button>
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -236,7 +236,7 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
           </DialogHeader>
           <Input
             type="text"
-            placeholder="Category name"
+            placeholder="Nom de la catégorie"
             value={newCategory.name}
             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
             className="border p-2"
@@ -247,7 +247,7 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
             className="border p-2"
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select a color" />
+              <SelectValue placeholder="Sélectionner une couleur" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="red">

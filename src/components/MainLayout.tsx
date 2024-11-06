@@ -179,7 +179,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
             className="border p-2 w-full mb-4"
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select Category" />
+              <SelectValue placeholder="Selectionner une catégorie" />
             </SelectTrigger>
             <SelectContent>
               {categories.map((category) => (
@@ -205,13 +205,13 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
           </DialogHeader>
           <Input
             type="text"
-            placeholder="New Note Title"
+            placeholder="Nouveau titre de note"
             value={newNote.title}
             onChange={(e) => setNewNote({ ...newNote, title: e.target.value })}
             className="border p-2 w-full mb-2"
           />
           <Textarea
-            placeholder="New Note Content"
+            placeholder="Nouveau contenu de note"
             value={newNote.content}
             onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
             className="border p-2 w-full h-96 mb-2"
@@ -227,7 +227,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
             className="border p-2 w-full mb-2"
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select Category" />
+              <SelectValue placeholder="Selectionner une catégorie" />
             </SelectTrigger>
             <SelectContent>
               {categories.map((category) => (
