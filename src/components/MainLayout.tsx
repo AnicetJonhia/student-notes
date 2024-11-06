@@ -92,7 +92,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
   };
 
   return (
-    <main className="w-full h-full overflow-y-scroll bg-gray-100 p-6">
+    <main className="w-full h-full overflow-y-scroll bg-muted p-6">
       <div className="w-full p-6 space-y-4">
         <div className="flex justify-between items-center">
           <h2 className="text-xl">Notes</h2>
@@ -104,7 +104,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
           className="w-full relative"
         >
           <CarouselContent>
-            <CarouselItem className="ml-10 md:basis-1/4 lg:basis-1/5 sm:basis-1/3">
+            <CarouselItem className="ml-10 md:basis-1/3 lg:basis-1/4 basis-1/3">
               <Button
                 variant={selectedCategory === null ? "default" : "outline"}
                 onClick={() => setSelectedCategory(null)}
@@ -114,7 +114,7 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
               </Button>
             </CarouselItem>
             {categories.map((category) => (
-              <CarouselItem key={category.id} className="md:basis-1/3 lg:basis-1/4 sm:basis-1/3">
+              <CarouselItem key={category.id} className="md:basis-1/3 lg:basis-1/4 basis-1/3">
                 <Button
                   variant={selectedCategory?.id === category.id ? "default" : "outline"}
                   onClick={() => setSelectedCategory(category)}
@@ -132,22 +132,22 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
         <div className="flex items-center justify-center flex-wrap">
           {notes.map((note) => (
               <Card key={note.id} onClick={() => setSelectedNote(note)} className="cursor-pointer mb-2 mr-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5">
-  <CardHeader>
-    <div className="flex justify-between items-center">
-      <div>{note.title}</div>
-      <div className="flex items-center">
-        <span
-          className="inline-block w-4 h-4 mr-2 rounded-full"
-          style={{ backgroundColor: note.category.color }}
-        ></span>
-        <div className="text-sm text-gray-500">{note.category.name}</div>
-      </div>
-    </div>
-  </CardHeader>
-  <CardContent>
-    <div className="text-sm text-gray-500">{note.content.substring(0, 10)}...</div>
-  </CardContent>
-</Card>
+                  <CardHeader>
+                    <div className="flex justify-between items-center">
+                      <div>{note.title}</div>
+                      <div className="flex items-center">
+                        <span
+                          className="inline-block w-4 h-4 mr-2 rounded-full"
+                          style={{ backgroundColor: note.category.color }}
+                        ></span>
+                        <div className="text-sm text-gray-500">{note.category.name}</div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-sm text-gray-500">{note.content.substring(0, 10)}...</div>
+                  </CardContent>
+                </Card>
               ))}
         </div>
       </div>

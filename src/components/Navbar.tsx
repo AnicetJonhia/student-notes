@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select"
+import { ToggleDarkMode } from "./utils/ToggleDarkMode.tsx";
 
 interface Category {
   id: string;
@@ -148,6 +149,7 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
       <div className="ml-auto flex-1">
         <span>PDN</span>
       </div>
+      <ToggleDarkMode />
       <Auth />
 
       {currentCategory && (

@@ -1,17 +1,20 @@
-import { useState } from "react";
-import MainLayout from "./components/MainLayout";
-import Navbar from "./components/Navbar";
+// App.tsx
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import LoginPage from "./pages/LoginPage";
+import {ThemeProvider} from "./context/ThemeContext.tsx";
 
 const App = () => {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-
   return (
-    <div className="h-screen flex flex-col">
-      <Navbar onSelectCategory={setSelectedCategory} />
-
-        <MainLayout selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
-
-    </div>
+       <ThemeProvider>
+                <Router>
+                  <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/home" element={<Home />} />
+                  </Routes>
+                </Router>
+       </ThemeProvider>
   );
 };
 
