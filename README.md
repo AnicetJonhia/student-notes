@@ -25,13 +25,17 @@ Ce projet est une application web construite avec React et TypeScript. Elle util
    git clone https://github.com/AnicetJonhia/pdn.git
 
 2.Accédez au répertoire du projet :
-   cd pdn
+        
+    cd pdn
+
 3.Installez les dépendances :
-   npm install
+        
+    npm install
 
 
 ## Configuration
 1.Créez un fichier .env à la racine du répertoire et ajoutez votre configuration Firebase :
+
     REACT_APP_FIREBASE_API_KEY=VOTRE_API_KEY
     REACT_APP_FIREBASE_AUTH_DOMAIN=VOTRE_AUTH_DOMAIN
     REACT_APP_FIREBASE_PROJECT_ID=VOTRE_PROJECT_ID
@@ -48,7 +52,8 @@ Ce projet est une application web construite avec React et TypeScript. Elle util
     
 ##Règles de sécurité Firestore
 Assurez-vous que vos règles de sécurité Firestore permettent aux utilisateurs authentifiés de lire et écrire des données :
-     rules_version = '2';
+     
+    rules_version = '2';
      service cloud.firestore {
         match /databases/{database}/documents {
           match /{document=**} {
