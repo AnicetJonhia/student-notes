@@ -23,21 +23,15 @@ Ce projet est une application web construite avec React et TypeScript. Elle util
 1. Clonez le dépôt :
    ```bash
    git clone https://github.com/AnicetJonhia/pdn.git
-    ```
+
 2.Accédez au répertoire du projet :
-   ```bash
-    cd pdn
-    ```
-    
+   cd pdn
 3.Installez les dépendances :
-    ```bash
-     npm install
-     ```
+   npm install
 
 
 ## Configuration
 1.Créez un fichier .env à la racine du répertoire et ajoutez votre configuration Firebase :
-   ```bash
     REACT_APP_FIREBASE_API_KEY=VOTRE_API_KEY
     REACT_APP_FIREBASE_AUTH_DOMAIN=VOTRE_AUTH_DOMAIN
     REACT_APP_FIREBASE_PROJECT_ID=VOTRE_PROJECT_ID
@@ -45,17 +39,15 @@ Ce projet est une application web construite avec React et TypeScript. Elle util
     REACT_APP_FIREBASE_MESSAGING_SENDER_ID=VOTRE_MESSAGING_SENDER_ID
     REACT_APP_FIREBASE_APP_ID=VOTRE_APP_ID
     REACT_APP_FIREBASE_MEASUREMENT_ID=VOTRE_MEASUREMENT_ID
-    ```
+
 
 ## Démarrage
 ### Exécutez l'application en mode développement :
-   ```bash
     npm run dev
-    ```
+
     
 ##Règles de sécurité Firestore
 Assurez-vous que vos règles de sécurité Firestore permettent aux utilisateurs authentifiés de lire et écrire des données :
-    ```bash
      rules_version = '2';
      service cloud.firestore {
         match /databases/{database}/documents {
@@ -64,7 +56,7 @@ Assurez-vous que vos règles de sécurité Firestore permettent aux utilisateurs
           }
         }
      }
-     ```
+
      
      
      
