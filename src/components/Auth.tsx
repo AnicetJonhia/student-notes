@@ -1,4 +1,4 @@
-// Auth.tsx
+
 import { auth, provider } from "../firebase/firebaseConfig.ts";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";

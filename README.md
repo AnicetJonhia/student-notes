@@ -1,50 +1,71 @@
-# React + TypeScript + Vite
+# PDN (Prise de notes)
+# Auteurs :
+     - Nasandratra n°10 ( nasandratriniavo.andrianimanjaka@esti.mg )
+     - Anicet n°11 ( anicet.randrianambinina@esti.mg)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+Ce projet est une application web construite avec React et TypeScript. Elle utilise Firebase pour l'authentification et Firestore pour la gestion de la base de données. L'application permet aux utilisateurs de gérer des notes et des catégories.
 
-Currently, two official plugins are available:
+## Fonctionnalités
+- Authentification des utilisateurs avec Firebase
+- Opérations CRUD pour les notes et les catégories
+- Mode sombre
+- Design réactif
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies utilisées
+- React
+- TypeScript
+- Firebase (Authentification et Firestore)
+- Radix UI
+- Lucide React
 
-## Expanding the ESLint configuration
+## Installation
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/AnicetJonhia/pdn.git
+    ```
+2.Accédez au répertoire du projet :
+   ```bash
+    cd pdn
+    ```
+    
+3.Installez les dépendances :
+    ```bash
+     npm install
+     ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
+## Configuration
+1.Créez un fichier .env à la racine du répertoire et ajoutez votre configuration Firebase :
+   ```bash
+    REACT_APP_FIREBASE_API_KEY=VOTRE_API_KEY
+    REACT_APP_FIREBASE_AUTH_DOMAIN=VOTRE_AUTH_DOMAIN
+    REACT_APP_FIREBASE_PROJECT_ID=VOTRE_PROJECT_ID
+    REACT_APP_FIREBASE_STORAGE_BUCKET=VOTRE_STORAGE_BUCKET
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=VOTRE_MESSAGING_SENDER_ID
+    REACT_APP_FIREBASE_APP_ID=VOTRE_APP_ID
+    REACT_APP_FIREBASE_MEASUREMENT_ID=VOTRE_MEASUREMENT_ID
+    ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Démarrage
+### Exécutez l'application en mode développement :
+   ```bash
+    npm run dev
+    ```
+    
+##Règles de sécurité Firestore
+Assurez-vous que vos règles de sécurité Firestore permettent aux utilisateurs authentifiés de lire et écrire des données :
+    ```bash
+     rules_version = '2';
+     service cloud.firestore {
+        match /databases/{database}/documents {
+          match /{document=**} {
+             allow read, write: if request.auth != null;
+          }
+        }
+     }
+     ```
+     
+     
+     
+   

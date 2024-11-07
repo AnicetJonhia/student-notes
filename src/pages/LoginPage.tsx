@@ -15,13 +15,19 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      await signInWithPopup(auth, provider);
+  try {
+    const result = await signInWithPopup(auth, provider);
+
+    console.log("result user", result.user);
+     if (result.user) {
       navigate("/home");
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
+    } else {
+      console.error("No user information returned from sign-in.");
     }
-  };
+  } catch (error) {
+    console.error("Error during login:", error);
+  }
+};
 
   return (
     <div className="flex h-screen flex-col justify-between">

@@ -15,23 +15,23 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select"
+} from "./ui/select";
 import { ToggleDarkMode } from "./utils/ToggleDarkMode.tsx";
 
 import { Category } from "../types/Category";
 
-type NavbarProps ={
+type NavbarProps = {
   onSelectCategory: (category: Category | null) => void;
-}
+};
 
 export default function Navbar({ onSelectCategory }: NavbarProps) {
+  const { user } = useAuth();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState({ name: "", color: "" });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const [isNewCategoryDialogOpen, setIsNewCategoryDialogOpen] = useState(false);
-  const { user } = useAuth(); // Get the current user
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -48,30 +48,44 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
     fetchCategories();
   }, [user]);
 
+  if(!user) {return null;}
+
   const closeSheet = () => {
     setIsSheetOpen(false);
   };
 
   const addCategory = async () => {
-    if (user) {
-      const newCategoryWithUser = { ...newCategory, user_id: user.uid };
-      const docRef = await addDoc(collection(db, "categories"), newCategoryWithUser);
-      setCategories([...categories, { id: docRef.id, ...newCategoryWithUser }]);
-      setNewCategory({ name: "", color: "" });
-      setIsNewCategoryDialogOpen(false);
+    try {
+      if (user) {
+        const newCategoryWithUser = { ...newCategory, user_id: user.uid };
+        const docRef = await addDoc(collection(db, "categories"), newCategoryWithUser);
+        setCategories([...categories, { id: docRef.id, ...newCategoryWithUser }]);
+        setNewCategory({ name: "", color: "" });
+        setIsNewCategoryDialogOpen(false);
+      }
+    } catch (error) {
+      console.error("Error d'ajout de catégorie : ", error);
     }
   };
 
   const updateCategory = async (id: string, updatedCategory: Partial<Category>) => {
-    const categoryDoc = doc(db, "categories", id);
-    await updateDoc(categoryDoc, updatedCategory);
-    setCategories(categories.map(category => category.id === id ? { ...category, ...updatedCategory } : category));
+    try {
+      const categoryDoc = doc(db, "categories", id);
+      await updateDoc(categoryDoc, updatedCategory);
+      setCategories(categories.map(category => category.id === id ? { ...category, ...updatedCategory } : category));
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la catégorie : ", error);
+    }
   };
 
   const deleteCategory = async (id: string) => {
-    const categoryDoc = doc(db, "categories", id);
-    await deleteDoc(categoryDoc);
-    setCategories(categories.filter(category => category.id !== id));
+    try {
+      const categoryDoc = doc(db, "categories", id);
+      await deleteDoc(categoryDoc);
+      setCategories(categories.filter(category => category.id !== id));
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la catégorie : ", error);
+    }
   };
 
   const openDialog = (category: Category) => {
@@ -80,9 +94,13 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
   };
 
   const handleUpdateCategory = () => {
-    if (currentCategory) {
-      updateCategory(currentCategory.id, { name: currentCategory.name, color: currentCategory.color });
-      setIsDialogOpen(false);
+    try {
+      if (currentCategory) {
+        updateCategory(currentCategory.id, { name: currentCategory.name, color: currentCategory.color });
+        setIsDialogOpen(false);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la catégorie : ", error);
     }
   };
 
@@ -165,7 +183,6 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
             <Select
               value={currentCategory.color}
               onValueChange={(value) => setCurrentCategory({ ...currentCategory, color: value })}
-
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select a color" />
@@ -239,7 +256,6 @@ export default function Navbar({ onSelectCategory }: NavbarProps) {
           <Select
             value={newCategory.color}
             onValueChange={(value) => setNewCategory({ ...newCategory, color: value })}
-
           >
             <SelectTrigger>
               <SelectValue placeholder="Sélectionner une couleur" />

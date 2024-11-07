@@ -19,11 +19,11 @@ type MainLayoutProps = {
 };
 
 const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) => {
+  const { user } = useAuth();
   const [notes, setNotes] = useState<Note[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [newNote, setNewNote] = useState({ title: "", content: "", category: { name: "", color: "" } });
-  const { user } = useAuth();
   const [isNewNoteDialogOpen, setIsNewNoteDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -51,25 +51,40 @@ const MainLayout = ({ selectedCategory, setSelectedCategory }: MainLayoutProps) 
     }
   }, [user, selectedCategory]);
 
+ if(!user) {return null;}
+
+
   const handleAddNote = async () => {
-    if (user) {
-      const newNoteWithUser = { ...newNote, user_id: user.uid };
-      const notesCollection = collection(db, "notes");
-      await addDoc(notesCollection, newNoteWithUser);
-      setNewNote({ title: "", content: "", category: { name: "", color: "" } });
+    try {
+      if (user) {
+        const newNoteWithUser = { ...newNote, user_id: user.uid };
+        const notesCollection = collection(db, "notes");
+        await addDoc(notesCollection, newNoteWithUser);
+        setNewNote({ title: "", content: "", category: { name: "", color: "" } });
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout de la note:', error);
     }
   };
 
   const handleUpdateNote = async (note: Note) => {
-    const noteDoc = doc(db, "notes", note.id);
-    await updateDoc(noteDoc, note);
-    setSelectedNote(null);
+    try {
+      const noteDoc = doc(db, "notes", note.id);
+      await updateDoc(noteDoc, note);
+      setSelectedNote(null);
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour de la note:', error);
+    }
   };
 
   const handleDeleteNote = async (noteId: string) => {
-    const noteDoc = doc(db, "notes", noteId);
-    await deleteDoc(noteDoc);
-    setSelectedNote(null);
+    try {
+      const noteDoc = doc(db, "notes", noteId);
+      await deleteDoc(noteDoc);
+      setSelectedNote(null);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la note:', error);
+    }
   };
 
   return (

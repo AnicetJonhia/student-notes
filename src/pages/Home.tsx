@@ -6,6 +6,8 @@ import { Category } from "../types/Category";
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
+
+
   return (
     <div className="h-screen flex flex-col justify-between">
       <div className="flex-grow flex flex-col">
