@@ -1,7 +1,7 @@
 # PDN (Prise de notes)
 # Auteurs :
      - Nasandratra n°10 ( nasandratriniavo.andrianimanjaka@esti.mg )
-     - Anicet n°11 ( anicet.randrianambinina@esti.mg)
+     - Anicet n°34 ( anicet.randrianambinina@esti.mg)
 
 ## Description
 Ce projet est une application web construite avec React et TypeScript. Elle utilise Firebase pour l'authentification et Firestore pour la gestion de la base de données. L'application permet aux utilisateurs de gérer des notes et des catégories.
